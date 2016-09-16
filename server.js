@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // modules
 var express        = require('express');
 var app            = express();
@@ -6,7 +8,7 @@ var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 
 // configuration
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 app.use(morgan('dev')); // log every request to the console
 
 app.use(bodyParser.urlencoded({'extended':'true'})); // parse application/x-www-form-urlencoded
