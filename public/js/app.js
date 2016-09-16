@@ -4,7 +4,9 @@ var scupTelApp = angular.module('scupTelApp', []);
 
 scupTelApp.controller('scupTelController', function($scope, $http) {
 
-  $http.get('http://scuptel-api.dev/area-codes').success(function(areaCodes) {
+  var backendEndpoint = 'http://localhost';
+
+  $http.get(backendEndpoint + '/area-codes').success(function(areaCodes) {
     $scope.areaCodes = areaCodes.data;
   });
 
@@ -16,11 +18,9 @@ scupTelApp.controller('scupTelController', function($scope, $http) {
 
     if ((typeof fromAreaCode != "undefined") && (typeof toAreaCode != "undefined") && (typeof timeInMinutes != "undefined")) {
 
-      var priceSimulatorResource = 'http://scuptel-api.dev/price-simulator';
-      var priceSimulatorParams = '/origin/' + fromAreaCode + '/destiny/' + toAreaCode + '/time/' + $scope.timeInMinutes;
-      var priceSimulatorUrl = priceSimulatorResource + priceSimulatorParams;
+      var priceSimulatorResource = '/price-simulator/origin/' + fromAreaCode + '/destiny/' + toAreaCode + '/time/' + $scope.timeInMinutes;
 
-      $http.get(priceSimulatorUrl).success(function(data) {
+      $http.get(backendEndpoint + priceSimulatorResource).success(function(data) {
         $scope.planFaleMais30 = data['falemais-30'];
         $scope.planFaleMais60 = data['falemais-60'];
         $scope.planFaleMais120 = data['falemais-120'];
